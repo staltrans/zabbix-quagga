@@ -1,0 +1,109 @@
+#!/bin/sh
+
+log() {
+     echo "`date +"[%d/%b/%Y:%H:%M:%S %z]"` ${@}"
+}
+
+VT=`which vtysh`
+STAT_OPENS="opens"
+STAT_NOTIFICATIONS="notifications"
+STAT_UPDATES="updates"
+STAT_KEEPALIVES="keepalives"
+STAT_ROUTE_REFRESH="refresh"
+STAT_CAPABILITY="capability"
+STAT_TOTAL="total"
+
+if [ ! -x "$VT" ]; then
+    log "Проверьте установлен ли vtysh(1) и переменную \$PATH=$PATH"
+    exit 1
+fi
+
+help() {
+cat << EOF
+ $0
+ $0 [ -s <ip address>]
+ $0 [ -s <ip address>] [ -u ]
+ $0 [ -s <ip address>] [ -r ]
+ $0 [ -s <ip address>] [ -(o|i) ($STAT_OPENS|$STAT_NOTIFICATIONS|$STAT_UPDATES|$STAT_KEEPALIVES|$STAT_ROUTE_REFRESH|$STAT_CAPABILITY|$STAT_TOTAL) ]
+   -s <ip address> ip адрес соседа
+   -r количество полученных маршрутов от соседа
+   -(o|i) ($STAT_OPENS|$STAT_NOTIFICATIONS|$STAT_UPDATES|$STAT_KEEPALIVES|$STAT_ROUTE_REFRESH|$STAT_CAPABILITY|$STAT_TOTAL) статисика сообщений
+      -o отпправленных
+      -i полученных
+      $STAT_OPENS         соединение
+      $STAT_NOTIFICATIONS уведомление
+      $STAT_UPDATES       обновление
+      $STAT_KEEPALIVES    подтверждение
+      $STAT_ROUTE_REFRESH обновление маршрутов
+      $STAT_CAPABILITY    
+      $STAT_TOTAL         общее количество
+   -h|-? показ данной справки
+EOF
+}
+
+while getopts "s:i:o:ruh?" OPTION
+do
+    case $OPTION in
+        s)
+            server=$OPTARG
+            ;;
+        o)
+            out=$OPTARG
+            if [ "$out" != "$STAT_OPENS" -a "$out" != "$STAT_NOTIFICATIONS" -a "$out" != "$STAT_UPDATES" -a "$out" != "$STAT_KEEPALIVES" -a "$out" != "$STAT_ROUTE_REFRESH" -a "$out" != "$STAT_CAPABILITY" -a "$out" != "$STAT_TOTAL" ]; then
+                log "Ключу -o передан не верный парамерт $msg\n"
+                help
+                exit 1
+            fi
+            ;;
+        i)
+            in=$OPTARG
+            if [ "$in" != "$STAT_OPENS" -a "$in" != "$STAT_NOTIFICATIONS" -a "$in" != "$STAT_UPDATES" -a "$in" != "$STAT_KEEPALIVES" -a "$in" != "$STAT_ROUTE_REFRESH" -a "$in" != "$STAT_CAPABILITY" -a "$in" != "$STAT_TOTAL" ]; then
+                log "Ключу -i передан не верный парамерт $msg\n"
+                help
+                exit 1
+            fi
+            ;;
+
+        r)
+            received="yes"
+            ;;
+        u)
+            uptime="yes"
+            ;;
+        h|?)
+            help
+            ;;
+    esac
+done
+
+if [ -z "$*" ]; then
+    "$VT" -c "show bgp neighbors" | \
+    awk -v ORS="" 'BEGIN { print "{\"data\":["} { if ($0 ~ /^BGP neighbor is/ ) { gsub(",", "", $4); gsub(",", "", $7); print "{\"{#BGP_NEIGHBOR}\":\""$4"\",\"{#BGP_AS}\":\""$7"\"}," } } END { print "]}" }' | \
+    sed 's/,]}$/]}\n/'
+fi
+
+if [ ! -z "$server" ]; then
+
+    if [ "$uptime" = "yes" ]; then
+        "$VT" -c "show bgp neighbors $server" | sed -n -E 's/[[:space:]]*BGP state = Established, up for ([0-9:]+)$/\1/p'
+        exit
+    fi
+
+    if [ "$received" = "yes" ]; then
+        "$VT" -c "show ip bgp neighbors $server received-routes" | grep -c -F "$server"
+        exit
+    fi
+
+    if [ ! -z "$out" ]; then
+        "$VT" -c "show bgp neighbors $server" | sed -E -n "s/.*$out:[[:space:]]+([0-9]+)[[:space:]]+[0-9]+/\1/ip"
+        exit
+    fi
+
+    if [ ! -z "$in" ]; then
+        "$VT" -c "show bgp neighbors $server" | sed -E -n "s/.*$in:[[:space:]]+[0-9]+[[:space:]]+([0-9]+)/\1/ip"
+        exit
+    fi
+
+    "$VT" -c "show bgp neighbors $server" | sed -n -E 's/[[:space:]]*BGP state = (\w+), up for [0-9:]+$/\1/p'
+
+fi
