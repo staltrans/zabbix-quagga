@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-01-22T09:23:33Z</date>
+    <date>2018-01-24T12:24:47Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -27,6 +27,9 @@
                 <application>
                     <name>Процессы</name>
                 </application>
+                <application>
+                    <name>Файловая система</name>
+                </application>
             </applications>
             <items>
                 <item>
@@ -35,7 +38,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>net.tcp.listen[179]</key>
-                    <delay>1m</delay>
+                    <delay>3m</delay>
                     <history>30d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -76,7 +79,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.cpu.util[bgpd]</key>
-                    <delay>1m</delay>
+                    <delay>3m</delay>
                     <history>30d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -117,7 +120,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.cpu.util[zebra]</key>
-                    <delay>1m</delay>
+                    <delay>3m</delay>
                     <history>30d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -158,7 +161,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[bgpd]</key>
-                    <delay>1m</delay>
+                    <delay>3m</delay>
                     <history>30d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -199,7 +202,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[zebra]</key>
-                    <delay>1m</delay>
+                    <delay>3m</delay>
                     <history>30d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -226,6 +229,129 @@
                     <applications>
                         <application>
                             <name>Процессы</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>Контрольная сумма /etc/quagga/bgpd.conf</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>vfs.file.cksum[/etc/quagga/bgpd.conf]</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Файловая система</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>Контрольная сумма /etc/quagga/vtysh.conf</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>vfs.file.cksum[/etc/quagga/vtysh.conf]</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Файловая система</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>Контрольная сумма /etc/quagga/zebra.conf</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>vfs.file.cksum[/etc/quagga/zebra.conf]</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Файловая система</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -274,7 +400,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.rcvd[{#BGP_NEIGHBOR},capability]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -316,7 +442,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.rcvd[{#BGP_NEIGHBOR},keepalives]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -358,7 +484,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.rcvd[{#BGP_NEIGHBOR},notifications]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -400,7 +526,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.rcvd[{#BGP_NEIGHBOR},opens]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -442,7 +568,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.rcvd[{#BGP_NEIGHBOR},refresh]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -484,7 +610,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.rcvd[{#BGP_NEIGHBOR},total]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -526,7 +652,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.rcvd[{#BGP_NEIGHBOR},updates]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -568,7 +694,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.sent[{#BGP_NEIGHBOR},capability]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -610,7 +736,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.sent[{#BGP_NEIGHBOR},keepalives]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -652,7 +778,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.sent[{#BGP_NEIGHBOR},notifications]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -694,7 +820,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.sent[{#BGP_NEIGHBOR},opens]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -736,7 +862,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.sent[{#BGP_NEIGHBOR},refresh]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -778,7 +904,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.sent[{#BGP_NEIGHBOR},total]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -820,7 +946,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.msg_stat.sent[{#BGP_NEIGHBOR},updates]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -862,7 +988,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.received_routes[{#BGP_NEIGHBOR}]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -904,7 +1030,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.state[{#BGP_NEIGHBOR}]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>0</trends>
                             <status>0</status>
@@ -946,7 +1072,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>bgp.neighbors.uptime[{#BGP_NEIGHBOR}]</key>
-                            <delay>1m</delay>
+                            <delay>3m</delay>
                             <history>30d</history>
                             <trends>0</trends>
                             <status>0</status>
@@ -1264,6 +1390,54 @@
             <url/>
             <status>0</status>
             <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>1</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template App Quagga:vfs.file.cksum[/etc/quagga/bgpd.conf].diff(0)}&gt;0</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>Файл /etc/quagga/bgpd.conf изменён</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>2</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>1</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template App Quagga:vfs.file.cksum[/etc/quagga/vtysh.conf].diff(0)}&gt;0</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>Файл /etc/quagga/vtysh.conf изменён</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>2</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>1</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template App Quagga:vfs.file.cksum[/etc/quagga/zebra.conf].diff(0)}&gt;0</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>Файл /etc/quagga/zebra.conf изменён</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>2</priority>
             <description/>
             <type>0</type>
             <manual_close>1</manual_close>

@@ -85,7 +85,7 @@ fi
 if [ ! -z "$server" ]; then
 
     if [ "$uptime" = "yes" ]; then
-        "$VT" -c "show bgp neighbors $server" | sed -n -E 's/[[:space:]]*BGP state = Established, up for ([0-9:]+)$/\1/p'
+        "$VT" -c "show bgp neighbors $server" | sed -n -E 's/[[:space:]]*BGP state = Established, up for (.+)$/\1/p'
         exit
     fi
 
@@ -104,6 +104,6 @@ if [ ! -z "$server" ]; then
         exit
     fi
 
-    "$VT" -c "show bgp neighbors $server" | sed -n -E 's/[[:space:]]*BGP state = (\w+), up for [0-9:]+$/\1/p'
+    "$VT" -c "show bgp neighbors $server" | sed -n -E 's/[[:space:]]*BGP state = (\w+)(, up for .+)?$/\1/p'
 
 fi
