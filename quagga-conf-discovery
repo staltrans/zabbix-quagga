@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ls /etc/quagga/*.conf | \
+    awk -v ORS="" 'BEGIN { print "{\"data\":["} { print "{\"{#QUAGGA_CONFIG_FILE}\":\""$1"\"},"  } END { print "]}" }' | \
+    sed 's/,]}$/]}\n/'
