@@ -1,0 +1,2 @@
+zabbix  ALL=(ALL) NOPASSWD: /etc/zabbix/scripts/bgp-neighbors-discovery
+zabbix  ALL=(ALL) NOPASSWD: /etc/zabbix/scripts/bgp-neighbors

@@ -1,0 +1,46 @@
+#!/bin/sh
+
+log() {
+     echo "`date +"[%d/%b/%Y:%H:%M:%S %z]"` ${@}"
+}
+
+VT=`which vtysh`
+
+if [ ! -x "$VT" ]; then
+    log "Проверьте установлен ли vtysh(1) и переменную \$PATH=$PATH"
+    exit 1
+fi
+
+help() {
+cat << EOF
+ $0
+ $0 [ -s <ip address>]
+   -s <ip address> ip адрес соседа
+   -h|-? показ данной справки
+EOF
+}
+
+while getopts "s:h?" OPTION
+do
+    case $OPTION in
+        s)
+            server=$OPTARG
+            ;;
+        h|?)
+            help
+            ;;
+    esac
+done
+
+if [ -z "$*" ]; then
+    "$VT" -c "show bgp summary" | \
+    awk -v ORS="" 'BEGIN { print "{\"data\":["} {
+        if ($0 ~ /^([0-9][0-9]?[0-9]?\.?)+ / ) {
+            print "{\"{#BGP_NEIGHBOR}\":\""$1"\",\"{#BGP_AS}\":\""$3"\"},"
+        } } END { print "]}" }' | \
+    sed 's/,]}$/]}\n/'
+fi
+
+if [ ! -z "$server" ]; then
+    "$VT" -c "show bgp neighbors $server"
+fi
